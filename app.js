@@ -13,6 +13,7 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const request = require('request');
+const path = require("path");
 
 // Defaults
 options.port = options.port || options.p || 8080;
@@ -66,6 +67,9 @@ app.use(require('webpack-hot-middleware')(
 
     }
 ));
+
+// If not using built MCT then must include this
+app.use(express.static(options.directory));
 
 // Expose index.html for development users.
 app.get('/', function (req, res) {
